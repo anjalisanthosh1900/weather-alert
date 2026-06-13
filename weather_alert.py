@@ -52,7 +52,7 @@ if "main" in data and "weather" in data:
             f"Temperature: {temperature}°C\n"
             f"Weather: {weather}"
         )
-        try:
+try:
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.starttls()
 
