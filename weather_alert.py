@@ -10,7 +10,7 @@ API_KEY = os.environ.get("API_KEY")
 CITY = "Thiruvananthapuram"
 
 EMAIL = os.environ.get("EMAIL")
-APP_PASSWORD = os.environ.get("PASSWORD")
+PASSWORD = os.environ.get("PASSWORD")
 
 # =========================
 # GET WEATHER DATA
