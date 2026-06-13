@@ -60,8 +60,8 @@ try:
 
     msg = EmailMessage()
     msg["Subject"] = "Weather Alert"
-    msg["From"] =sender_email 
-    msg["To"] = sender_email
+    msg["From"] =  SENDER_EMAIL
+    msg["To"] =  RECEIVER_EMAIL
     msg.set_content("Weather alert triggered!")
 
     server.send_message(msg)
