@@ -56,4 +56,14 @@ if "main" in data and "weather" in data:
         try:
             server = smtplib.SMTP("smtp.gmail.com", 587)
             server.starttls()
-            server.login
+              server.login(EMAIL, PASSWORD)
+
+    server.send_message(msg)
+
+    print("Email sent successfully!")
+
+except Exception as e:
+    print("Failed to send email:", e)
+
+finally:
+    server.quit()
