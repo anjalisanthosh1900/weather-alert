@@ -56,12 +56,12 @@ try:
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.starttls()
 
-    server.login(EMAIL, PASSWORD)
+    server.login(sender_email, app_password)
 
     msg = EmailMessage()
     msg["Subject"] = "Weather Alert"
-    msg["From"] = EMAIL
-    msg["To"] = EMAIL
+    msg["From"] =sender_email 
+    msg["To"] = sender_email
     msg.set_content("Weather alert triggered!")
 
     server.send_message(msg)
