@@ -52,18 +52,25 @@ if "main" in data and "weather" in data:
             f"Temperature: {temperature}°C\n"
             f"Weather: {weather}"
         )
-
         try:
-            server = smtplib.SMTP("smtp.gmail.com", 587)
-            server.starttls()
-            server.login(EMAIL, PASSWORD)
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.starttls()
 
-            server.send_message(msg)
+    server.login(EMAIL, PASSWORD)
 
-            print("Email sent successfully!")
+    msg = EmailMessage()
+    msg["Subject"] = "Weather Alert"
+    msg["From"] = EMAIL
+    msg["To"] = EMAIL
+    msg.set_content("Weather alert triggered!")
+
+    server.send_message(msg)
+
+    print("Email sent successfully!")
 
 except Exception as e:
-            print("Failed to send email:", e)
+    print("Failed to send email:", e)
 
 finally:
-            server.quit()
+    server.quit()
+   
