@@ -9,8 +9,8 @@ from email.message import EmailMessage
 API_KEY = os.environ.get("API_KEY")
 CITY = "Thiruvananthapuram"
 
-SENDER_EMAIL = os.environ.get("EMAIL")
-RECEIVER_EMAIL = os.environ.get("EMAIL")  # same email for testing
+EMAIL = os.environ.get("EMAIL")
+EMAIL = os.environ.get("EMAIL")  # same email for testing
 APP_PASSWORD = os.environ.get("PASSWORD")
 
 # =========================
@@ -46,12 +46,12 @@ else:
             server = smtplib.SMTP("smtp.gmail.com", 587)
             server.starttls()
 
-            server.login(SENDER_EMAIL, APP_PASSWORD)
+            server.login(EMAIL, APP_PASSWORD)
 
             msg = EmailMessage()
             msg["Subject"] = "Weather Alert!"
-            msg["From"] = SENDER_EMAIL
-            msg["To"] = RECEIVER_EMAIL
+            msg["From"] = EMAIL
+            msg["To"] = EMAIL
 
             msg.set_content(
                 f"Weather Alert!\n\n"
