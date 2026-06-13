@@ -10,7 +10,6 @@ API_KEY = os.environ.get("API_KEY")
 CITY = "Thiruvananthapuram"
 
 EMAIL = os.environ.get("EMAIL")
-EMAIL = os.environ.get("EMAIL")  # same email for testing
 APP_PASSWORD = os.environ.get("PASSWORD")
 
 # =========================
@@ -46,7 +45,7 @@ else:
             server = smtplib.SMTP("smtp.gmail.com", 587)
             server.starttls()
 
-            server.login(EMAIL, APP_PASSWORD)
+            server.login(EMAIL, PASSWORD)
 
             msg = EmailMessage()
             msg["Subject"] = "Weather Alert!"
