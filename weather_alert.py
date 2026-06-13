@@ -6,12 +6,12 @@ from email.message import EmailMessage
 # =========================
 # CONFIG (FROM GITHUB SECRETS)
 # =========================
-API_KEY = os.getenv("API_KEY")
+API_KEY = os.environ.get("API_KEY")
 CITY = "Thiruvananthapuram"
 
-SENDER_EMAIL = os.getenv("EMAIL")
-RECEIVER_EMAIL = os.getenv("EMAIL")
-APP_PASSWORD = os.getenv("PASSWORD")
+SENDER_EMAIL = os.environ.get("EMAIL")
+RECEIVER_EMAIL = os.environ.get("EMAIL")
+APP_PASSWORD = os.environ.get("PASSWORD")
 
 # =========================
 # GET WEATHER DATA
