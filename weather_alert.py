@@ -10,7 +10,7 @@ API_KEY = os.environ.get("API_KEY")
 CITY = "Thiruvananthapuram"
 
 SENDER_EMAIL = os.environ.get("EMAIL")
-RECEIVER_EMAIL = os.environ.get("EMAIL")
+RECEIVER_EMAIL = os.environ.get("EMAIL")  # same email for testing
 APP_PASSWORD = os.environ.get("PASSWORD")
 
 # =========================
@@ -24,10 +24,11 @@ data = response.json()
 print("API Response:", data)
 
 # =========================
-# CHECK DATA
+# CHECK DATA VALIDITY
 # =========================
-if "main" in data and "weather" in data:
-
+if data.get("cod") != 200:
+    print("API Error:", data)
+else:
     temperature = data["main"]["temp"]
     weather = data["weather"][0]["main"]
 
@@ -41,36 +42,34 @@ if "main" in data and "weather" in data:
 
         print("Alert triggered!")
 
-        msg = EmailMessage()
-        msg["Subject"] = "Weather Alert!"
-        msg["From"] = SENDER_EMAIL
-        msg["To"] = RECEIVER_EMAIL
+        try:
+            server = smtplib.SMTP("smtp.gmail.com", 587)
+            server.starttls()
 
-        msg.set_content(
-            f"Weather Alert!\n\n"
-            f"City: {CITY}\n"
-            f"Temperature: {temperature}°C\n"
-            f"Weather: {weather}"
-        )
-try:
-    server = smtplib.SMTP("smtp.gmail.com", 587)
-    server.starttls()
+            server.login(SENDER_EMAIL, APP_PASSWORD)
 
-    server.login(SENDER_EMAIL,APP_PASSWORD )
+            msg = EmailMessage()
+            msg["Subject"] = "Weather Alert!"
+            msg["From"] = SENDER_EMAIL
+            msg["To"] = RECEIVER_EMAIL
 
-    msg = EmailMessage()
-    msg["Subject"] = "Weather Alert"
-    msg["From"] =  SENDER_EMAIL
-    msg["To"] =  RECEIVER_EMAIL
-    msg.set_content("Weather alert triggered!")
+            msg.set_content(
+                f"Weather Alert!\n\n"
+                f"City: {CITY}\n"
+                f"Temperature: {temperature}°C\n"
+                f"Weather: {weather}"
+            )
 
-    server.send_message(msg)
+            server.send_message(msg)
 
-    print("Email sent successfully!")
+            print("Email sent successfully!")
 
-except Exception as e:
-    print("Failed to send email:", e)
+        except Exception as e:
+            print("Failed to send email:", e)
 
-finally:
-    server.quit()
+        finally:
+            server.quit()
+
+    else:
+        print("No alert needed. Weather is normal.")
    
